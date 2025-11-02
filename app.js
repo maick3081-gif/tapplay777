@@ -170,6 +170,81 @@ setInterval(()=>{
 
 /* Guardado periódico */
 setInterval(save, 3000);
+/* ==== CTA / Modal / Tracking ==== */
+
+// Elementos
+const ctaBar = document.getElementById('ctaBar');
+const offerModal = document.getElementById('offerModal');
+const closeModalBtn = document.getElementById('closeModal');
+const ctaBuy = document.getElementById('ctaBuy');
+const streakNum = document.getElementById('streakNum');
+const countdownEl = document.getElementById('countdown');
+
+let streak = 0;
+let timer = 59; // seg para el -20%
+let timerRef = null;
+
+// Simula la racha leyendo tu marcador si lo tienes
+function updateStreakUI(val){
+  streak = val ?? streak + 1;
+  if (streakNum) streakNum.textContent = String(streak);
+  if (streak >= 10) { // umbral para mostrar CTA automáticamente
+    ctaBar?.setAttribute('aria-hidden','false');
+  }
+}
+updateStreakUI(0);
+
+// Temporizador simple mm:ss
+function startCountdown(){
+  clearInterval(timerRef);
+  timer = 59;
+  timerRef = setInterval(()=>{
+    const m = String(Math.floor(timer/60)).padStart(2,'0');
+    const s = String(timer%60).padStart(2,'0');
+    if (countdownEl) countdownEl.textContent = `${m}:${s}`;
+    if (timer-- <= 0) {
+      clearInterval(timerRef);
+      // Oculta el descuento si deseas: ctaBar?.setAttribute('aria-hidden','true');
+    }
+  }, 1000);
+}
+startCountdown();
+
+// Abre modal si el usuario hace hover o click en la CTA
+ctaBuy?.addEventListener('mouseenter', ()=> track('cta_hover'));
+ctaBuy?.addEventListener('click', (e)=>{
+  track('cta_click');
+  // si prefieres abrir modal en vez de ir directo, descomenta:
+  // e.preventDefault();
+  // openModal();
+});
+
+// Modal helpers
+function openModal(){ offerModal?.setAttribute('aria-hidden','false'); track('modal_open'); }
+function closeModal(){ offerModal?.setAttribute('aria-hidden','true'); track('modal_close'); }
+closeModalBtn?.addEventListener('click', closeModal);
+offerModal?.addEventListener('click', (e)=>{ if(e.target === offerModal) closeModal(); });
+
+// Pequeño “buscapié” si el usuario baja
+let seenBar = false;
+window.addEventListener('scroll', ()=>{
+  if (seenBar) return;
+  if (window.scrollY > 100) {
+    seenBar = true;
+    ctaBar?.setAttribute('aria-hidden','false');
+    track('cta_autoshow_scroll');
+  }
+});
+
+// Tracking (GA4 o consola)
+function track(eventName, data={}){
+  if (window.gtag) {
+    gtag('event', eventName, data);
+  } else {
+    console.log('[track]', eventName, data);
+  }
+}
+
 
 /* Cargar estado */
 load(); render(); message('¡Listo para romper tu récord!');
