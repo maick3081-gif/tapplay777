@@ -3,104 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TapPlay 777 — Reta tu racha y desbloquea premios</title>
+  <title>TapPlay 777 | Sube tu racha y gana</title>
+  <meta name="description" content="Toca, acumula puntos y desbloquea recompensas. Promo por tiempo limitado." />
+  <link rel="stylesheet" href="styles.css" />
 
-  <!-- Open Graph / Social -->
+  <!-- Open Graph -->
   <meta property="og:title" content="TapPlay 777 — Reta tu racha y desbloquea premios" />
-  <meta property="og:description" content="Haz tap, rompe tu récord y desbloquea recompensas sorpresa. ¿Listo para subir de nivel?" />
+  <meta property="og:description" content="Rompe tu récord y reclama tu recompensa de hoy. Tiempo limitado." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://maick3081-gif.github.io/tapplay777/" />
   <meta property="og:image" content="https://maick3081-gif.github.io/tapplay777/og-cover.png" />
   <meta name="twitter:card" content="summary_large_image" />
-
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- GA4 opcional (si tienes ID cámbialo; si no, déjalo así o bórralo) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXX');
-  </script>
 </head>
-  <body>
-  <div class="app">
-    <header class="top">
-      <div class="brand">
-        <span class="dot"></span> TapPlay<span class="accent">777</span>
+
+<body>
+  <!-- HEADER DEL JUEGO -->
+  <header class="top">
+    <span class="dot"></span>
+    <span class="brand">TapPlay<span class="accent">777</span></span>
+    <button id="resetBtn" class="ghost" title="Reiniciar progreso">Reiniciar</button>
+  </header>
+
+  <!-- TARJETA PRINCIPAL -->
+  <main class="card">
+    <section class="stats">
+      <div class="stat">
+        <div class="label">Puntos</div>
+        <div id="score" class="value">0</div>
       </div>
-      <button id="resetBtn" class="ghost" title="Reiniciar progreso">Reiniciar</button>
-    </header>
-
-    <main class="card">
-      <div class="stats">
-        <div class="stat">
-          <div class="label">Puntos</div>
-          <div id="score" class="value">0</div>
-        </div>
-        <div class="stat">
-          <div class="label">Nivel</div>
-          <div id="level" class="value">1</div>
-        </div>
-        <div class="stat">
-          <div class="label">Energía</div>
-          <div class="bar">
-            <div id="energyFill" class="fill" style="width:100%"></div>
-          </div>
+      <div class="stat">
+        <div class="label">Nivel</div>
+        <div id="level" class="value">1</div>
+      </div>
+      <div class="stat">
+        <div class="label">Energía</div>
+        <div class="bar">
+          <div id="energyFill" class="fill" style="width:100%"></div>
         </div>
       </div>
+    </section>
 
-      <button id="tapBtn" class="tap">TAP</button>
+    <button id="tapBtn" class="tap">TAP</button>
+    <div id="burst" aria-hidden="true"></div>
 
-      <div id="burst" aria-hidden="true"></div>
+    <p id="message" class="message">¡Listo para romper tu récord!</p>
 
-      <div id="message" class="message">¡Listo para romper tu récord!</div>
+    <div class="row">
+      <button id="shareBtn" class="primary">Compartir racha</button>
+      <button id="boostBtn" class="secondary">Boost x2 (10s)</button>
+    </div>
 
-      <div class="row">
-        <button id="shareBtn" class="primary">Compartir racha</button>
-        <button id="boostBtn" class="secondary">Boost x2 (10s)</button>
-      </div>
+    <p class="hint">Consejo: toca en ritmo para combos. Guarda tu energía y usa el Boost en el momento justo.</p>
+  </main>
 
-      <p class="hint">Consejo: toca en ritmo para combos. Guarda tu energía y usa el Boost en el momento justo.</p>
-    </main>
+  <footer class="foot">
+    Hecho con 💜 por <a href="https://github.com/maick3081-gif" target="_blank" rel="noreferrer">maick3081-gif</a>
+  </footer>
 
-    <footer class="foot">
-      Hecho con 💜 por <a href="https://github.com/maick3081-gif" target="_blank" rel="noreferrer">maick3081-gif</a>
-    </footer>
+  <!-- === CTA STICKY (barra inferior) === -->
+  <div class="cta-bar" id="ctaBar" aria-hidden="false">
+    <div class="cta-bar__left">
+      <strong>📘 Oferta hoy:</strong> <span id="ctaCopy">Descuento limitado</span>
+    </div>
+    <div class="cta-bar__right">
+      <!-- ID que usaremos desde JS -->
+      <a id="buyTop" class="btn btn-primary" href="#">Aprovechar ahora</a>
+    </div>
   </div>
 
-  <!-- ...tu contenido del juego... -->
-
- <!-- === CTA Sticky + Modal === -->
-<div class="cta-bar" id="ctaBar" aria-hidden="false">
-  <div class="cta-bar__left">
-    <strong>🔥 Racha: <span id="streakNum">0</span></strong>
-    <span class="badge badge-off">–20% HOY</span>
-    <span class="timer" id="countdown">00:59</span>
+  <!-- === MODAL DE OFERTA === -->
+  <div class="modal" id="offerModal" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" id="closeModal" aria-label="Cerrar">×</button>
+      <h3>Oferta limitada <span id="offerPct">-20%</span></h3>
+      <p id="offerText">Tu racha te da acceso a un descuento por tiempo limitado. ¡Aprovéchalo ahora!</p>
+      <!-- ID que usaremos desde JS -->
+      <a id="buyModal" class="btn btn-primary" href="#">Quiero desbloquear</a>
+    </div>
   </div>
-  <a class="btn btn-primary"
-     href="https://TU-LINK-DE-HOTMART-AQUI"
-     target="_blank" rel="noopener" id="ctaBuy">
-    Desbloquear ahora
-  </a>
-</div>
 
-<div class="modal" id="offerModal" aria-hidden="true">
-  <div class="modal__dialog">
-    <button class="modal__close" id="closeModal" aria-label="Cerrar">×</button>
-    <h3>Oferta limitada –20%</h3>
-    <p>Tu racha te da acceso a un descuento por tiempo limitado. ¡Aprovéchalo ahora!</p>
-    <a class="btn btn-primary"
-       href="https://TU-LINK-DE-HOTMART-AQUI"
-       target="_blank" rel="noopener">
-      Quiero desbloquear
-    </a>
-  </div>
-</div>
-<!-- === /CTA Sticky + Modal === -->
-
-<!-- Carga del JS del juego y la CTA -->
-<script src="app.js"></script>
+  <!--  === APP === -->
+  <script src="app.js"></script>
 </body>
 </html>
