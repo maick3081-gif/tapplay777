@@ -2,15 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TapPlay777</title>
-  <meta name="description" content="Un minijuego dopamina-friendly: toca, acumula puntos, sube de nivel y comparte tu racha." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TapPlay 777 — Reta tu racha y desbloquea premios</title>
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="TapPlay 777 — Reta tu racha y desbloquea premios" />
+  <meta property="og:description" content="Haz tap, rompe tu récord y desbloquea recompensas sorpresa. ¿Listo para subir de nivel?" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://maick3081-gif.github.io/tapplay777/" />
+  <meta property="og:image" content="https://maick3081-gif.github.io/tapplay777/og-cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="stylesheet" href="styles.css" />
-  <meta name="theme-color" content="#111827" />
-  <!-- Icono simple (data URI) para no crear más archivos -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23a78bfa'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-size='52' fill='white' font-family='Arial, sans-serif'%3E777%3C/text%3E%3C/svg%3E" />
+
+  <!-- GA4 opcional (si tienes ID cámbialo; si no, déjalo así o bórralo) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
+  </script>
 </head>
-<body>
+  <body>
   <div class="app">
     <header class="top">
       <div class="brand">
@@ -56,6 +70,37 @@
     </footer>
   </div>
 
-  <script src="app.js"></script>
+  <!-- ...tu contenido del juego... -->
+
+ <!-- === CTA Sticky + Modal === -->
+<div class="cta-bar" id="ctaBar" aria-hidden="false">
+  <div class="cta-bar__left">
+    <strong>🔥 Racha: <span id="streakNum">0</span></strong>
+    <span class="badge badge-off">–20% HOY</span>
+    <span class="timer" id="countdown">00:59</span>
+  </div>
+  <a class="btn btn-primary"
+     href="https://TU-LINK-DE-HOTMART-AQUI"
+     target="_blank" rel="noopener" id="ctaBuy">
+    Desbloquear ahora
+  </a>
+</div>
+
+<div class="modal" id="offerModal" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" id="closeModal" aria-label="Cerrar">×</button>
+    <h3>Oferta limitada –20%</h3>
+    <p>Tu racha te da acceso a un descuento por tiempo limitado. ¡Aprovéchalo ahora!</p>
+    <a class="btn btn-primary"
+       href="https://TU-LINK-DE-HOTMART-AQUI"
+       target="_blank" rel="noopener">
+      Quiero desbloquear
+    </a>
+  </div>
+</div>
+<!-- === /CTA Sticky + Modal === -->
+
+<!-- Carga del JS del juego y la CTA -->
+<script src="app.js"></script>
 </body>
 </html>
