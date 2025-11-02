@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TapPlay777</title>
+  <meta name="description" content="Un minijuego dopamina-friendly: toca, acumula puntos, sube de nivel y comparte tu racha." />
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#111827" />
+  <!-- Icono simple (data URI) para no crear más archivos -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23a78bfa'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-size='52' fill='white' font-family='Arial, sans-serif'%3E777%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="brand">
+        <span class="dot"></span> TapPlay<span class="accent">777</span>
+      </div>
+      <button id="resetBtn" class="ghost" title="Reiniciar progreso">Reiniciar</button>
+    </header>
+
+    <main class="card">
+      <div class="stats">
+        <div class="stat">
+          <div class="label">Puntos</div>
+          <div id="score" class="value">0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Nivel</div>
+          <div id="level" class="value">1</div>
+        </div>
+        <div class="stat">
+          <div class="label">Energía</div>
+          <div class="bar">
+            <div id="energyFill" class="fill" style="width:100%"></div>
+          </div>
+        </div>
+      </div>
+
+      <button id="tapBtn" class="tap">TAP</button>
+
+      <div id="burst" aria-hidden="true"></div>
+
+      <div id="message" class="message">¡Listo para romper tu récord!</div>
+
+      <div class="row">
+        <button id="shareBtn" class="primary">Compartir racha</button>
+        <button id="boostBtn" class="secondary">Boost x2 (10s)</button>
+      </div>
+
+      <p class="hint">Consejo: toca en ritmo para combos. Guarda tu energía y usa el Boost en el momento justo.</p>
+    </main>
+
+    <footer class="foot">
+      Hecho con 💜 por <a href="https://github.com/maick3081-gif" target="_blank" rel="noreferrer">maick3081-gif</a>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
